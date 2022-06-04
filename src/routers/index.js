@@ -1,14 +1,14 @@
 const Router = require('koa-router')
-const ctrl = require('./api')
+const db = require('./db.controller')
 
 const router = new Router()
 
 router
-  .get('/', ctrl.list)
-  .post('/', ctrl.create)
-  .delete('/', ctrl.delete)
-  .put('/', ctrl.put)
-  .patch('/', ctrl.patch)
+  .get('/', db.list)
+  .post('/Admin', db.insertAdmin)
+  .post('/Progress', db.insertProgress)
+  .post('/Target', db.insertTarget)
+  .post('/Total', db.insertTotal)
 
   .use(ctx => {
     ctx.response.status = 404

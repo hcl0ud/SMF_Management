@@ -11,6 +11,8 @@
     "@babel/cli": "^7.17.10",
     "@babel/polyfill": "^7.12.1",
     "@koa/cors": "^3.3.0",
+    "@types/aws-iot-device-sdk": "^2.2.4",
+    "aws-iot-device-sdk": "^2.2.12",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "dotenv": "^16.0.1",
@@ -22,6 +24,7 @@
     "koa-router": "^10.1.1",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.4",
+    "mqtt": "^4.3.7",
     "prettier": "^2.6.2"
   },
   "devDependencies": {
