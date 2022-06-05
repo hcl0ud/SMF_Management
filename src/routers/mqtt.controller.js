@@ -4,7 +4,7 @@ const {
   insertProgress,
   insertTarget,
   insertTotal,
-} = require('./db.insert.controller');
+} = require('./db.controller');
 const device = new awsIot.device({
   keyPath: __dirname + '/cert/SMF_MNG.private.pem.key',
   certPath: __dirname + '/cert/SMF_MNG.certificate.pem.crt',

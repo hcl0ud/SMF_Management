@@ -12,6 +12,31 @@ Client.connect((err, db) => {
   console.log('Connected to Database');
 });
 
+exports.getAdmin = async (ctx) => {
+  console.log('Found the all Admin');
+  ctx.body = await Admin.find().toArray();
+};
+
+exports.getProduct = async (ctx) => {
+  console.log('Find the all Product');
+  ctx.body = await Product.find().toArray();
+};
+
+exports.getProgress = async (ctx) => {
+  console.log('Find the all Progress');
+  ctx.body = await Progress.find().toArray();
+};
+
+exports.getTarget = async (ctx) => {
+  console.log('Find the all Target');
+  ctx.body = await Target.find().toArray();
+};
+
+exports.getTotal = async (ctx) => {
+  console.log('Find the all Total');
+  ctx.body = await Total.find().toArray();
+};
+
 exports.insertAdmin = async (ctx) => {
   const { key, id, pw } = ctx.request.body;
   await Admin.insertOne({ key, id, pw });

@@ -1,16 +1,15 @@
 const Router = require('koa-router');
-const dbInsert = require('./db.insert.controller');
-const dbFind = require('./db.find.controller');
+const db = require('./db.controller');
 
 const router = new Router();
 
 router
-  .get('/Admin', dbFind.getAdmin)
-  .get('/Product', dbFind.getProduct)
-  .get('/Progress', dbFind.getProgress)
-  .get('/Target', dbFind.getTarget)
-  .get('/Total', dbFind.getTotal)
+  .get('/Admin', db.getAdmin)
+  .get('/Product', db.getProduct)
+  .get('/Progress', db.getProgress)
+  .get('/Target', db.getTarget)
+  .get('/Total', db.getTotal)
 
-  .post('/Admin', dbInsert.insertAdmin);
+  .post('/Admin', db.insertAdmin);
 
 module.exports = router;
