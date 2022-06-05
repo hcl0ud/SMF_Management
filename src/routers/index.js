@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const Router = require('koa-router')
 const db = require('./db.controller')
 
@@ -16,3 +17,18 @@ router
   })
 
 module.exports = router
+=======
+const Router = require('koa-router');
+const dbInsert = require('./db.insert.controller');
+const dbFind = require('./db.find.controller');
+
+const router = new Router();
+
+router
+  .get('/Admin', dbFind.getAdmin)
+  .get('/Product', dbFind.getProduct)
+
+  .post('/Admin', dbInsert.insertAdmin);
+
+module.exports = router;
+>>>>>>> 8e20949 (mqtt, db api 연결)

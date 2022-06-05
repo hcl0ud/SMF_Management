@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 require('dotenv').config()
 
 const Koa = require('koa')
@@ -10,6 +11,20 @@ const app = new Koa()
 const ip = process.env.DOMAIN
 const port = process.env.PORT
 const corsOptions = process.env.corsOptions
+=======
+require('dotenv').config();
+
+const Koa = require('koa');
+const cors = require('@koa/cors');
+const bodyparser = require('koa-body');
+const router = require('./routers');
+const { mqttCon, mqttSub } = require('./routers/mqtt.controller');
+
+const app = new Koa();
+const ip = process.env.DOMAIN;
+const port = process.env.PORT;
+const corsOptions = process.env.corsOptions;
+>>>>>>> 8e20949 (mqtt, db api 연결)
 
 app
   .use(cors(corsOptions))
@@ -17,8 +32,16 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
   .listen(port, () => {
+<<<<<<< HEAD
     console.log(`Connected to http://${ip}:${port}`)
   })
 
 mqttCon()
 mqttProduct()
+=======
+    console.log(`Connected to http://${ip}:${port}`);
+  });
+
+mqttCon();
+mqttSub();
+>>>>>>> 8e20949 (mqtt, db api 연결)
