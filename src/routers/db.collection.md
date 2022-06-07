@@ -1,9 +1,15 @@
+Admin = {
+key,
+id,
+pw
+}
+
 Product = {
 name,
 num,
 item,
-defect,
-date
+is_defect,
+prod_date
 }
 
 Progress = {

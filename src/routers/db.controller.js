@@ -13,8 +13,15 @@ Client.connect((err, db) => {
 });
 
 exports.getAdmin = async (ctx) => {
-  console.log('Found the all Admin');
-  ctx.body = await Admin.find().toArray();
+  const { id, pw, confirm_pw } = ctx.request.body;
+  if (pw === confirm_pw) {
+    Admin.findOne({ id }, (err, user_id, user_pw) => {
+      if (!user_id || !user_pw) ctx.body({ loginSuccess: false, message: '로그인 실패' });
+      else ctx.body({ loginSuccess: true, message: '로그인 성공' });
+    });
+  } else {
+    ctx.body({ loginSuccess: false, message: '로그인 실패' });
+  }
 };
 
 exports.getProduct = async (ctx) => {
@@ -39,15 +46,31 @@ exports.getTotal = async (ctx) => {
 
 exports.insertAdmin = async (ctx) => {
   const { key, id, pw } = ctx.request.body;
-  await Admin.insertOne({ key, id, pw });
-  ctx.body = 'insertAdmin Success';
+  let result = await Admin.findOne({ key, id });
+
+  if (result && result.length > 0) {
+    ctx.body = { registerSuccess: false, message: '회원가입 실패' };
+  } else {
+    await Admin.insertOne({ key, id, pw });
+    ctx.body = { registerSuccess: true, message: '회원가입 성공' };
+  }
 };
 
 exports.insertProduct = async (ctx) => {
   await Product.insertOne(ctx);
-  const { name, defect } = ctx.request.body;
+  const { name, is_defect } = ctx.request.body;
   upProdVolume(name);
-  if (defect === '1') upDefectVolume(name);
+  if (is_defect === '1') upDefectVolume(name);
+
+  const { worker, state, prod_vol, defect_cnt } = Progress.find({ name }).toArray();
+  const { tar_vol } = Target.find({ name }).toArray();
+
+  const { now } = getNow(tot_name, tot_tar_vol, tot_prod_vol);
+  const { defect_rate } = getDefectRate(tot_name, tot_defect_cnt, tot_prod_vol);
+
+  const total = { name, worker, state, tar_vol, prod_vol, defect_cnt, now, defect_rate };
+
+  await Total.insertOne(total);
 };
 
 exports.insertProgress = async (ctx) => {
@@ -56,10 +79,6 @@ exports.insertProgress = async (ctx) => {
 
 exports.insertTarget = async (ctx) => {
   await Target.insertOne(ctx);
-};
-
-exports.insertTotal = async (ctx) => {
-  await Total.insertOne(ctx);
 };
 
 const upProdVolume = (name) => {
