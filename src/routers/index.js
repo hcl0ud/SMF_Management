@@ -9,7 +9,7 @@ router
   .get('/Target', db.getTarget)
   .get('/Total', db.getTotal)
 
-  .get('/Admin/login', db.getAdmin)
-  .post('/Admin/register', db.insertAdmin);
+  .post('/Admin/login', db.loginAdmin)
+  .post('/Admin/register', db.registerAdmin);
 
 module.exports = router;

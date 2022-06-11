@@ -12,16 +12,12 @@ Client.connect((err, db) => {
   console.log('Connected to Database');
 });
 
-exports.getAdmin = async (ctx) => {
-  const { id, pw, confirm_pw } = ctx.request.body;
-  if (pw === confirm_pw) {
-    Admin.findOne({ id }, (err, user_id, user_pw) => {
-      if (!user_id || !user_pw) ctx.body({ loginSuccess: false, message: '로그인 실패' });
-      else ctx.body({ loginSuccess: true, message: '로그인 성공' });
-    });
-  } else {
-    ctx.body({ loginSuccess: false, message: '로그인 실패' });
-  }
+exports.loginAdmin = async (ctx) => {
+  const { id, pw } = ctx.request.body;
+
+  if (!(await Admin.findOne({ id: id, pw: pw })))
+    ctx.body = { loginSuccess: false, message: '로그인 실패' };
+  else ctx.body = { loginSuccess: true, message: '로그인 성공' };
 };
 
 exports.getProduct = async (ctx) => {
@@ -44,13 +40,12 @@ exports.getTotal = async (ctx) => {
   ctx.body = await Total.find().toArray();
 };
 
-exports.insertAdmin = async (ctx) => {
+exports.registerAdmin = async (ctx) => {
   const { key, id, pw } = ctx.request.body;
-  let result = await Admin.findOne({ key, id });
 
-  if (result && result.length > 0) {
+  if (await Admin.findOne({ key, id }))
     ctx.body = { registerSuccess: false, message: '회원가입 실패' };
-  } else {
+  else {
     await Admin.insertOne({ key, id, pw });
     ctx.body = { registerSuccess: true, message: '회원가입 성공' };
   }
