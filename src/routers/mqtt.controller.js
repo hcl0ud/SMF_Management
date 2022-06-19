@@ -4,7 +4,7 @@ const device = new awsIot.device({
   keyPath: __dirname + '/cert/SMF_MNG.private.pem.key',
   certPath: __dirname + '/cert/SMF_MNG.certificate.pem.crt',
   caPath: __dirname + '/cert/RootCA.pem',
-  clientId: 'SMF_MNG_Front',
+  clientId: 'SMF_MNG_Backend',
   host: 'a2hxwq5s1gvqp-ats.iot.ap-northeast-2.amazonaws.com',
 });
 
@@ -19,13 +19,13 @@ exports.mqttSub = async () => {
   device.on('message', (topic, payload) => {
     const msg = JSON.parse(payload);
     switch (topic) {
-      case 'SMT_IT/CCIT/SMF_MNG/Product/#':
+      case 'SMT_IT/CCIT/SMF_MNG/Product/h_to_s':
         insertProduct(msg);
         break;
-      case 'SMT_IT/CCIT/SMF_MNG/Progress/#':
+      case 'SMT_IT/CCIT/SMF_MNG/Progress/h_to_s':
         insertProgress(msg);
         break;
-      case 'SMT_IT/CCIT/SMF_MNG/Target/#':
+      case 'SMT_IT/CCIT/SMF_MNG/Target/h_to_s':
         insertTarget(msg);
         break;
     }
