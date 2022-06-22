@@ -11,7 +11,7 @@ const device = new awsIot.device({
 exports.mqttCon = () => {
   device.on('connect', () => {
     console.log('Connected to AWS IoT Core');
-    device.subscribe('SMT_IT/CCIT/SMF_MNG/#');
+    device.subscribe('SMT_IT/CCIT/#');
   });
 };
 

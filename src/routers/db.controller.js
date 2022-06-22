@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const Client = new MongoClient('mongodb://localhost:27017');
 const db = Client.db('SMF_Management');
+const db2 = Client.db('SMT_IT');
 
 // 스마트팩토리 관리자 페이지
 const Admin = db.collection('Admin');
@@ -13,8 +14,8 @@ const Total = db.collection('Total');
 const User = db.collection('User');
 
 // 스마트축사
-const User2 = db.collection('User2');
-const Weight = db.collection('Weight');
+const User2 = db2.collection('User2');
+const Weight = db2.collection('Weight');
 
 let tot_name, tot_tar_vol, tot_prod_vol, tot_defect_cnt;
 
