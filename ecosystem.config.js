@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'ssas',
+      name: 'SMF_MNG',
       script: 'nodemon --watch src/ src/index.js',
       instances: 0,
       exec_mode: 'fork',

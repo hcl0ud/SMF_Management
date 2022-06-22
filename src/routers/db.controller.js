@@ -2,14 +2,18 @@ const MongoClient = require('mongodb').MongoClient;
 const Client = new MongoClient('mongodb://localhost:27017');
 const db = Client.db('SMF_Management');
 
-// 스마트팩토리
+// 스마트팩토리 관리자 페이지
 const Admin = db.collection('Admin');
 const Product = db.collection('Product');
 const Progress = db.collection('Progress');
 const Target = db.collection('Target');
 const Total = db.collection('Total');
 
+// 스마트팩토리 유저 페이지
+const User = db.collection('User');
+
 // 스마트축사
+const User2 = db.collection('User2');
 const Weight = db.collection('Weight');
 
 let tot_name, tot_tar_vol, tot_prod_vol, tot_defect_cnt;
@@ -22,6 +26,22 @@ exports.loginAdmin = async (ctx) => {
   const { id, pw } = ctx.request.body;
 
   if (!(await Admin.findOne({ id: id, pw: pw })))
+    ctx.body = { loginSuccess: false, message: '로그인 실패' };
+  else ctx.body = { loginSuccess: true, message: '로그인 성공' };
+};
+
+exports.loginUser = async (ctx) => {
+  const { userEmail, userPasswd } = ctx.request.body;
+
+  if (!(await User.findOne({ userEmail: userEmail, userPasswd: userPasswd })))
+    ctx.body = { loginSuccess: false, message: '로그인 실패' };
+  else ctx.body = { loginSuccess: true, message: '로그인 성공' };
+};
+
+exports.loginUser2 = async (ctx) => {
+  const { id, pw } = ctx.request.body;
+
+  if (!(await User2.findOne({ id: id, pw: pw })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
   else ctx.body = { loginSuccess: true, message: '로그인 성공' };
 };
@@ -53,6 +73,27 @@ exports.registerAdmin = async (ctx) => {
     ctx.body = { registerSuccess: false, message: '회원가입 실패' };
   else {
     await Admin.insertOne({ key, id, pw });
+    ctx.body = { registerSuccess: true, message: '회원가입 성공' };
+  }
+};
+
+exports.registerUser = async (ctx) => {
+  const { userName, userEmail, userPhone, userAddress, userPasswd, userType } = ctx.request.body;
+
+  if (await User.findOne({ userEmail }))
+    ctx.body = { registerSuccess: false, message: '회원가입 실패' };
+  else {
+    await User.insertOne({ userName, userEmail, userPhone, userAddress, userPasswd, userType });
+    ctx.body = { registerSuccess: true, message: '회원가입 성공' };
+  }
+};
+
+exports.registerUser2 = async (ctx) => {
+  const { id, pw } = ctx.request.body;
+
+  if (await User2.findOne({ id })) ctx.body = { registerSuccess: false, message: '회원가입 실패' };
+  else {
+    await User2.insertOne({ id, pw });
     ctx.body = { registerSuccess: true, message: '회원가입 성공' };
   }
 };

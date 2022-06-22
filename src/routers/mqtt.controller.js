@@ -1,5 +1,5 @@
 const awsIot = require('aws-iot-device-sdk');
-const { insertProduct, insertProgress, insertTarget, insertWeight } = require('./db.controller');
+const db = require('./db.controller');
 const device = new awsIot.device({
   keyPath: __dirname + '/cert/SMF_MNG.private.pem.key',
   certPath: __dirname + '/cert/SMF_MNG.certificate.pem.crt',
@@ -20,16 +20,16 @@ exports.mqttSub = async () => {
     const msg = JSON.parse(payload);
     switch (topic) {
       case 'SMT_IT/CCIT/SMF_MNG/Product/h_to_s':
-        insertProduct(msg);
+        db.insertProduct(msg);
         break;
       case 'SMT_IT/CCIT/SMF_MNG/Progress/h_to_s':
-        insertProgress(msg);
+        db.insertProgress(msg);
         break;
       case 'SMT_IT/CCIT/SMF_MNG/Target/h_to_s':
-        insertTarget(msg);
+        db.insertTarget(msg);
         break;
       case 'SMT_IT/CCIT/SENSOR/WEIGHT':
-        insertWeight(msg);
+        db.insertWeight(msg);
         break;
     }
   });
