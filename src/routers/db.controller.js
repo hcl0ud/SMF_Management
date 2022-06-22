@@ -2,11 +2,15 @@ const MongoClient = require('mongodb').MongoClient;
 const Client = new MongoClient('mongodb://localhost:27017');
 const db = Client.db('SMF_Management');
 
+// 스마트팩토리
 const Admin = db.collection('Admin');
 const Product = db.collection('Product');
 const Progress = db.collection('Progress');
 const Target = db.collection('Target');
 const Total = db.collection('Total');
+
+// 스마트축사
+const Weight = db.collection('Weight');
 
 let tot_name, tot_tar_vol, tot_prod_vol, tot_defect_cnt;
 
@@ -78,6 +82,11 @@ exports.insertProgress = async (ctx) => {
 
 exports.insertTarget = async (ctx) => {
   await Target.insertOne(ctx);
+  console.log('insert success');
+};
+
+exports.insertWeight = async (ctx) => {
+  await Weight.insertOne(ctx);
   console.log('insert success');
 };
 
