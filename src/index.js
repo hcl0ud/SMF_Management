@@ -10,10 +10,15 @@ const app = new Koa();
 const ip = process.env.DOMAIN;
 const port = process.env.PORT;
 
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+};
+
 app
   .use(bodyparser())
   .use(router.routes())
-  .use(cors())
+  .use(cors(corsOptions))
   .use(router.allowedMethods())
   .listen(port, () => {
     console.log(`Connected to http://${ip}:${port}`);
