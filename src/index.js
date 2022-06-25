@@ -13,7 +13,7 @@ const port = process.env.PORT;
 app
   .use(bodyparser())
   .use(router.routes())
-  .use(cors)
+  .use(cors())
   .use(router.allowedMethods())
   .listen(port, () => {
     console.log(`Connected to http://${ip}:${port}`);
