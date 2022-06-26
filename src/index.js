@@ -15,8 +15,8 @@ app
   .use(router.allowedMethods())
   .use((ctx) => {
     ctx.response
-      .header('Access-Control-Allow-Origin', '*')
-      .header('Access-Control-Allow-Headers', '*');
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Headers', '*');
   })
   .use(cors())
   .listen(port, () => {
