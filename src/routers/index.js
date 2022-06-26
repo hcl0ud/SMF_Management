@@ -1,7 +1,8 @@
-const Router = require('koa-router');
-const db = require('./db.controller');
-
+const Router = require('@koa/router');
 const router = new Router();
+
+const db = require('./db.controller');
+const mqtt = require('./mqtt.controller');
 
 router
   .get('/Product', db.getProduct)
@@ -17,5 +18,7 @@ router
 
   .post('/User2/Login', db.loginUser2)
   .post('/User2/Register', db.registerUser2);
+
+mqtt.Con();
 
 module.exports = router;
