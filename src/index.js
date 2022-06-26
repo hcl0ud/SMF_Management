@@ -13,11 +13,6 @@ app
   .use(bodyparser())
   .use(router.routes())
   .use(router.allowedMethods())
-  .use((ctx) => {
-    ctx.response
-      .setHeader('Access-Control-Allow-Origin', '*')
-      .setHeader('Access-Control-Allow-Headers', '*');
-  })
   .use(cors())
   .listen(port, () => {
     console.log(`Connected to http://${ip}:${port}`);
