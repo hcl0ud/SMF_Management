@@ -13,6 +13,12 @@ app
   .use(bodyparser())
   .use(router.routes())
   .use(router.allowedMethods())
+  .use(async (ctx, next) => {
+    ctx
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+      .set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+  })
   .use(cors())
   .listen(port, () => {
     console.log(`Connected to http://${ip}:${port}`);

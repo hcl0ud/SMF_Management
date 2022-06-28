@@ -4,12 +4,6 @@ const router = new Router();
 const db = require('./db.controller');
 const mqtt = require('./mqtt.controller');
 
-router.use((ctx) => {
-  ctx.response
-    .setHeader('Access-Control-Allow-Origin', '*')
-    .setHeader('Access-Control-Allow-Headers', '*');
-});
-
 router
   .get('/Product', db.getProduct)
   .get('/Progress', db.getProgress)
