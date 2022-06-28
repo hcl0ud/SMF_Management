@@ -1,3 +1,5 @@
+'use strict';
+
 require('dotenv').config();
 
 const Koa = require('koa');
@@ -10,18 +12,10 @@ const ip = process.env.DOMAIN;
 const port = process.env.PORT;
 
 app
+  .use(cors())
   .use(bodyparser())
   .use(router.routes())
   .use(router.allowedMethods())
-  .use(async (ctx, next) => {
-    ctx.set({
-      'Access-Control-Allow-Credentials': true,
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
-    });
-  })
-  .use(cors())
   .listen(port, () => {
     console.log(`Connected to http://${ip}:${port}`);
   });

@@ -32,6 +32,7 @@ exports.loginAdmin = async (ctx) => {
 };
 
 exports.loginUser = async (ctx) => {
+  // ctx.set('Access-Control-Allow-Origin', '*');
   const { userEmail, userPasswd } = ctx.request.body;
 
   if (!(await User.findOne({ userEmail: userEmail, userPasswd: userPasswd })))
