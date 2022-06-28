@@ -37,7 +37,7 @@ exports.loginUser = async (ctx) => {
   if (!(await User.find({ userEmail, userPasswd })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
   else {
-    let { userName, userPhone, userAddress, userType } = await User.findOne({
+    let { userName, userPhone, userAddress, userType } = await User.find({
       userEmail,
       userPasswd,
     });
