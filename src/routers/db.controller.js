@@ -34,7 +34,7 @@ exports.loginAdmin = async (ctx) => {
 exports.loginUser = async (ctx) => {
   const { userName, userEmail, userPhone, userAddress, userPasswd, userType } = ctx.request.body;
 
-  if (!(await User.findOne({ userName, userEmail, userPhone, userAddress, userPasswd, userType })))
+  if (!(await User.find({ userEmail, userPasswd })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
   else ctx.body = { userName, userEmail, userPhone, userAddress, userType };
 };
