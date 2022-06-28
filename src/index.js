@@ -14,10 +14,12 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
   .use(async (ctx, next) => {
-    ctx
-      .set('Access-Control-Allow-Origin', '*')
-      .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-      .set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    ctx.set({
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
+    });
   })
   .use(cors())
   .listen(port, () => {
