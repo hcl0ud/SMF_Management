@@ -25,19 +25,21 @@ Client.connect((err, db) => {
 
 exports.loginAdmin = async (ctx) => {
   const { id, pw } = ctx.request.body;
+  console.log(ctx.body);
 
   if (!(await Admin.findOne({ id: id, pw: pw })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
   else ctx.body = { loginSuccess: true, message: '로그인 성공' };
+  console.log(ctx.body);
 };
 
 exports.loginUser = async (ctx) => {
   let { userEmail, userPasswd } = ctx.request.body;
 
-  if (!(await User.find({ userEmail, userPasswd })))
+  if (!(await User.findOne({ userEmail, userPasswd })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
   else {
-    let { userName, userPhone, userAddress, userType } = await User.find({
+    let { userName, userPhone, userAddress, userType } = await User.findOne({
       userEmail,
       userPasswd,
     });
