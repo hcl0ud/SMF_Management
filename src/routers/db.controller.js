@@ -32,12 +32,11 @@ exports.loginAdmin = async (ctx) => {
 };
 
 exports.loginUser = async (ctx) => {
-  // ctx.set('Access-Control-Allow-Origin', '*');
-  const { userEmail, userPasswd } = ctx.request.body;
+  const { userName, userEmail, userPhone, userAddress, userPasswd, userType } = ctx.request.body;
 
   if (!(await User.findOne({ userEmail: userEmail, userPasswd: userPasswd })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
-  else ctx.body = { loginSuccess: true, message: '로그인 성공' };
+  else ctx.body = { userName, userEmail, userPhone, userAddress, userType };
 };
 
 exports.loginUser2 = async (ctx) => {
