@@ -36,7 +36,7 @@ exports.loginUser = async (ctx) => {
 
   if (!(await User.find({ userEmail, userPasswd })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
-  else ctx.body = { userName, userEmail, userPhone, userAddress, userType };
+  else ctx.body = User.findOne({ userName, userEmail, userPhone, userAddress, userType });
 };
 
 exports.loginUser2 = async (ctx) => {
