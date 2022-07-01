@@ -105,9 +105,9 @@ exports.registerUser2 = async (ctx) => {
 };
 
 exports.insertProduct = async (msg) => {
-  await Product.insertOne(msg);
+  const { name, num, item, is_defect, prod_date } = msg;
 
-  const { name, is_defect } = msg;
+  await Product.insertOne({ name, num, item, is_defect, prod_date });
   await Progress.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
   await Target.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
   await Total.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
