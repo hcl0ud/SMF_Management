@@ -124,12 +124,12 @@ exports.insertProduct = async (msg) => {
     { name: name },
     {
       $set: {
-        worker,
-        state,
-        tar_vol,
-        defect_cnt,
-        now,
-        defect_rate,
+        worker: worker,
+        state: state,
+        tar_vol: tar_vol,
+        defect_cnt: defect_cnt,
+        now: now,
+        defect_rate: defect_rate,
       },
     },
   );
