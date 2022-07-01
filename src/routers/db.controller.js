@@ -72,7 +72,7 @@ exports.getTarget = async (ctx) => {
 
 exports.getTotal = async (ctx) => {
   console.log('Find the all Total');
-  ctx.body = await Total.find().toArray();
+  ctx.body = await Total.find({ name }).toArray();
 };
 
 exports.registerAdmin = async (ctx) => {
