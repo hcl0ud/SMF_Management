@@ -122,7 +122,7 @@ exports.insertProduct = async (msg) => {
   const now = ((prod_vol / tar_vol) * 100).toFixed(2);
   const defect_rate = ((defect_cnt / prod_vol) * 100).toFixed(2);
 
-  console.log(now, defect_rate);
+  console.log(typeof now, now, typeof defect_rate, defect_rate);
 
   await Total.updateOne(
     { name: name },
