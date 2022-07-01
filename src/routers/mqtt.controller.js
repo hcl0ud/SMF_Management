@@ -17,8 +17,9 @@ exports.Con = () => {
 
 exports.Sub = async () => {
   client.on('message', (topic, payload) => {
-    console.log(topic, payload);
     const msg = JSON.parse(payload);
+    console.log(topic, msg);
+
     switch (topic) {
       case 'SMT_IT/CCIT/SMF_MNG/Product/h_to_s':
         db.insertProduct(msg);
