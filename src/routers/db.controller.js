@@ -141,7 +141,7 @@ exports.insertProgress = async (ctx) => {
 
 exports.insertTarget = async (ctx) => {
   const { name, tar_vol } = ctx.request.body;
-  await Target.updateOne({ name: name }, { $set: { tal_vol: tal_vol } });
+  await Target.updateOne({ name: name }, { $set: { tar_vol: tar_vol } });
 };
 
 exports.insertWeight = async (ctx) => {
