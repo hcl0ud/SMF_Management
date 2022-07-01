@@ -54,6 +54,7 @@ exports.loginUser2 = async (ctx) => {
 
 exports.findProduct = async (ctx) => {
   const { name } = ctx.request.body;
+  console.log(ctx.request.body);
   ctx.body = await Product.find({ name: name });
 };
 
