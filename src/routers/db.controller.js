@@ -53,17 +53,14 @@ exports.loginUser2 = async (ctx) => {
 };
 
 exports.findProduct = async (ctx) => {
-  console.log('Find the all Product');
   ctx.body = await Product.find().toArray();
 };
 
 exports.findProgress = async (ctx) => {
-  console.log('Find the all Progress');
   ctx.body = await Progress.find().toArray();
 };
 
 exports.findTarget = async (ctx) => {
-  console.log('Find the all Target');
   ctx.body = await Target.find().toArray();
 };
 
@@ -135,7 +132,6 @@ exports.insertProduct = async (msg) => {
       },
     },
   );
-  console.log('insert success');
 };
 
 exports.insertProgress = async (ctx) => {
