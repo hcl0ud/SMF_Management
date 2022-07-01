@@ -117,8 +117,8 @@ exports.insertProduct = async (msg) => {
   const { worker, state, prod_vol, defect_cnt } = await Progress.findOne({ name: name });
   const { tar_vol } = await Target.findOne({ name: name });
 
-  const now = parseFloat(await getNow(name, tar_vol, prod_vol));
-  const defect_rate = parseFloat(await getDefectRate(name, defect_cnt, prod_vol));
+  const now = parseFloat(await getNow(name, tar_vol, prod_vol)).toFixed(2);
+  const defect_rate = parseFloat(await getDefectRate(name, defect_cnt, prod_vol)).toFixed(2);
 
   console.log(now, defect_rate);
 
