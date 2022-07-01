@@ -120,6 +120,8 @@ exports.insertProduct = async (msg) => {
   const { now } = await getNow(tot_name, tot_tar_vol, tot_prod_vol);
   const { defect_rate } = await getDefectRate(tot_name, tot_defect_cnt, tot_prod_vol);
 
+  console.log(now, defect_rate);
+
   await Total.updateOne(
     { name: name },
     {
