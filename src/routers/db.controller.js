@@ -107,15 +107,20 @@ exports.insertProduct = async (msg) => {
   await Product.insertOne(msg);
 
   const { name, is_defect } = msg;
-  await upProdVolume(name);
+  await Progress.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
+  await Target.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
+  await Total.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
 
-  if (is_defect === '1') await upDefectVolume(name);
+  if (is_defect === '1') {
+    await Progress.updateOne({ name: name }, { $inc: { defect_cnt: 1 } });
+    await Total.updateOne({ name: name }, { $inc: { defect_cnt: 1 } });
+  }
 
   const { worker, state, prod_vol, defect_cnt } = await Progress.findOne({ name: name });
   const { tar_vol } = await Target.findOne({ name: name });
 
-  const now = parseFloat(await getNow(name, tar_vol, prod_vol)).toFixed(2);
-  const defect_rate = parseFloat(await getDefectRate(name, defect_cnt, prod_vol)).toFixed(2);
+  const now = ((prod_vol / tar_vol) * 100).toFixed(2);
+  const defect_rate = ((defect_cnt / prod_vol) * 100).toFixed(2);
 
   console.log(now, defect_rate);
 
@@ -149,39 +154,9 @@ exports.insertWeight = async (ctx) => {
   console.log('insert success');
 };
 
-const upProdVolume = async (name) => {
-  await Progress.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
-  await Target.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
-  await Total.updateOne({ name: name }, { $inc: { prod_vol: 1 } });
-};
+const getNow = async (tot_name, tot_tar_vol, tot_prod_vol) => {};
 
-const upDefectVolume = async (name) => {
-  const name_filter = { name: name };
-  const up_defect = { $inc: { defect_cnt: 1 } };
-
-  await Progress.updateOne(name_filter, up_defect);
-  await Total.updateOne(name_filter, up_defect);
-};
-
-const getNow = async (tot_name, tot_tar_vol, tot_prod_vol) => {
-  console.log('----->> now');
-  const name_filter = { name: tot_name };
-  let now = ((tot_prod_vol / tot_tar_vol) * 100).toFixed(2);
-  console.log(now);
-  await Total.updateOne(name_filter, { $set: { now: now } });
-
-  return now;
-};
-
-const getDefectRate = async (tot_name, tot_defect_cnt, tot_prod_vol) => {
-  console.log('----->> defect_rate');
-  const name_filter = { name: tot_name };
-  let defect_rate = ((tot_defect_cnt / tot_prod_vol) * 100).toFixed(2);
-  console.log(defect_rate);
-  await Total.updateOne(name_filter, { $set: { defect_rate: defect_rate } });
-
-  return defect_rate;
-};
+const getDefectRate = async (tot_name, tot_defect_cnt, tot_prod_vol) => {};
 
 // const changeToInt = (doc) => {
 //   for (i = 0; i < doc.length; i++) {
