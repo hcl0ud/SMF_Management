@@ -76,6 +76,7 @@ exports.findTotal = async (ctx) => {
 
   console.log('Find the all Total');
   ctx.body = await Total.find({ name }).toArray();
+  console.log(ctx.body);
 };
 
 exports.registerAdmin = async (ctx) => {
