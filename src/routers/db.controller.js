@@ -114,8 +114,8 @@ exports.insertProduct = async (msg) => {
 
   if (is_defect === '1') await upDefectVolume(name);
 
-  const { worker, state, prod_vol, defect_cnt } = Progress.find({ name }).toArray();
-  const { tar_vol } = Target.find({ name }).toArray();
+  const { worker, state, prod_vol, defect_cnt } = Progress.find({ name: name }).toArray();
+  const { tar_vol } = Target.find({ name: name }).toArray();
 
   const { now } = getNow(tot_name, tot_tar_vol, tot_prod_vol);
   const { defect_rate } = getDefectRate(tot_name, tot_defect_cnt, tot_prod_vol);
