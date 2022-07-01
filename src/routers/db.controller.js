@@ -120,9 +120,10 @@ exports.insertProduct = async (msg) => {
   const { now } = getNow(tot_name, tot_tar_vol, tot_prod_vol);
   const { defect_rate } = getDefectRate(tot_name, tot_defect_cnt, tot_prod_vol);
 
-  const afterTotal = { name, worker, state, tar_vol, prod_vol, defect_cnt, now, defect_rate };
-
-  await Total.updateOne({ name: name }, { $set: { afterTotal } });
+  await Total.updateOne(
+    { name: name },
+    { name, worker, state, tar_vol, prod_vol, defect_cnt, now, defect_rate },
+  );
   console.log('insert success');
 };
 
