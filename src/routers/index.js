@@ -7,8 +7,10 @@ const mqtt = require('./mqtt.controller');
 router
   .post('/Product', db.findProduct)
   .post('/Progress', db.findProgress)
-  .post('/Target', db.findTarget)
+  .post('/Target/Find', db.findTarget)
   .post('/Total', db.findTotal)
+
+  .post('/Target/Update', db.insertTarget)
 
   .post('/Admin/Login', db.loginAdmin)
   .post('/Admin/Register', db.registerAdmin)

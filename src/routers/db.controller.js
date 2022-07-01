@@ -16,8 +16,6 @@ const User = db.collection('User');
 const User2 = db.collection('User2');
 const Weight = db.collection('Weight');
 
-let tot_name, tot_tar_vol, tot_prod_vol, tot_defect_cnt;
-
 Client.connect((err, db) => {
   console.log('Connected to Database');
 });
@@ -54,10 +52,7 @@ exports.loginUser2 = async (ctx) => {
 
 exports.findProduct = async (ctx) => {
   const { name } = ctx.request.body;
-  console.log(ctx.request.body);
-  console.log(name);
   ctx.body = await Product.find({ name: name }).toArray();
-  console.log(ctx.body);
 };
 
 exports.findProgress = async (ctx) => {
@@ -65,7 +60,8 @@ exports.findProgress = async (ctx) => {
 };
 
 exports.findTarget = async (ctx) => {
-  ctx.body = await Target.find().toArray();
+  const { name } = ctx.request.body;
+  ctx.body = await Target.find({ name: name }).toArray();
 };
 
 exports.findTotal = async (ctx) => {
@@ -123,11 +119,6 @@ exports.insertProduct = async (msg) => {
   const { worker, state, prod_vol, defect_cnt } = await Progress.findOne({ name: name });
   const { tar_vol } = await Target.findOne({ name: name });
 
-  // let now = ;
-  // let defect_rate = ;
-
-  // console.log(typeof now, typeof defect_rate);
-
   await Total.updateOne(
     { name: name },
     {
@@ -149,31 +140,11 @@ exports.insertProgress = async (ctx) => {
 };
 
 exports.insertTarget = async (ctx) => {
-  await Target.insertOne(ctx);
-  console.log('insert success');
+  const { name, tar_vol } = ctx.request.body;
+  await Target.updateOne({ name: name }, { $set: { tal_vol: tal_vol } });
 };
 
 exports.insertWeight = async (ctx) => {
   await Weight.insertOne(ctx);
   console.log('insert success');
 };
-
-const getNow = async (tot_name, tot_tar_vol, tot_prod_vol) => {};
-
-const getDefectRate = async (tot_name, tot_defect_cnt, tot_prod_vol) => {};
-
-// const changeToInt = (doc) => {
-//   for (i = 0; i < doc.length; i++) {
-//     doc[i] = parseInt(doc[i]);
-//   }
-//
-//   return doc;
-// };
-//
-// const changeToFloat = (doc) => {
-//   for (i = 0; i < doc.length; i++) {
-//     doc[i] = parseFloat(doc[i]);
-//   }
-//
-//   return doc;
-// };
