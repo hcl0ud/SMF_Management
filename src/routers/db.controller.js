@@ -25,7 +25,7 @@ Client.connect((err, db) => {
 
 exports.loginAdmin = async (ctx) => {
   const { id, pw } = ctx.request.body;
-  console.log(ctx.body);
+  console.log(ctx.request.body);
 
   if (!(await Admin.findOne({ id: id, pw: pw })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
