@@ -77,6 +77,7 @@ exports.getTotal = async (ctx) => {
 
 exports.registerAdmin = async (ctx) => {
   const { key, id, pw } = ctx.request.body;
+  console.log(ctx.request.body);
 
   if (await Admin.findOne({ key, id }))
     ctx.body = { registerSuccess: false, message: '회원가입 실패' };
@@ -84,6 +85,7 @@ exports.registerAdmin = async (ctx) => {
     await Admin.insertOne({ key, id, pw });
     ctx.body = { registerSuccess: true, message: '회원가입 성공' };
   }
+  console.log(ctx.body);
 };
 
 exports.registerUser = async (ctx) => {
