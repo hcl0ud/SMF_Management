@@ -55,22 +55,24 @@ exports.loginUser2 = async (ctx) => {
   else ctx.body = { loginSuccess: true, message: '로그인 성공' };
 };
 
-exports.getProduct = async (ctx) => {
+exports.findProduct = async (ctx) => {
   console.log('Find the all Product');
   ctx.body = await Product.find().toArray();
 };
 
-exports.getProgress = async (ctx) => {
+exports.findProgress = async (ctx) => {
   console.log('Find the all Progress');
   ctx.body = await Progress.find().toArray();
 };
 
-exports.getTarget = async (ctx) => {
+exports.findTarget = async (ctx) => {
   console.log('Find the all Target');
   ctx.body = await Target.find().toArray();
 };
 
-exports.getTotal = async (ctx) => {
+exports.findTotal = async (ctx) => {
+  const { name } = ctx.request.body;
+
   console.log('Find the all Total');
   ctx.body = await Total.find({ name }).toArray();
 };

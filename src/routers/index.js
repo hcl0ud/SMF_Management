@@ -5,10 +5,10 @@ const db = require('./db.controller');
 const mqtt = require('./mqtt.controller');
 
 router
-  .get('/Product', db.getProduct)
-  .get('/Progress', db.getProgress)
-  .get('/Target', db.getTarget)
-  .get('/Total', db.getTotal)
+  .post('/Product', db.findProduct)
+  .post('/Progress', db.findProgress)
+  .post('/Target', db.findTarget)
+  .post('/Total', db.findTotal)
 
   .post('/Admin/Login', db.loginAdmin)
   .post('/Admin/Register', db.registerAdmin)
