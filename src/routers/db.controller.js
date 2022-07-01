@@ -53,7 +53,8 @@ exports.loginUser2 = async (ctx) => {
 };
 
 exports.findProduct = async (ctx) => {
-  ctx.body = await Product.find().toArray();
+  const { name } = ctx.request.body;
+  ctx.body = await Product.find({ name: name });
 };
 
 exports.findProgress = async (ctx) => {
@@ -119,10 +120,10 @@ exports.insertProduct = async (msg) => {
   const { worker, state, prod_vol, defect_cnt } = await Progress.findOne({ name: name });
   const { tar_vol } = await Target.findOne({ name: name });
 
-  let now = (prod_vol / tar_vol) * 100;
-  let defect_rate = (defect_cnt / prod_vol) * 100;
+  // let now = ;
+  // let defect_rate = ;
 
-  console.log(typeof now, typeof defect_rate);
+  // console.log(typeof now, typeof defect_rate);
 
   await Total.updateOne(
     { name: name },
@@ -132,8 +133,8 @@ exports.insertProduct = async (msg) => {
         state: state,
         tar_vol: tar_vol,
         defect_cnt: defect_cnt,
-        now: now,
-        defect_rate: defect_rate,
+        now: prod_vol / tar_vol,
+        defect_rate: defect_cnt / prod_vol,
       },
     },
   );
