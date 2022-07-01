@@ -56,7 +56,7 @@ exports.findProduct = async (ctx) => {
   const { name } = ctx.request.body;
   console.log(ctx.request.body);
   console.log(name);
-  ctx.body = await Product.find({ name: name });
+  ctx.body = await Product.find({ name: name }).toArray();
   console.log(ctx.body);
 };
 
