@@ -122,7 +122,17 @@ exports.insertProduct = async (msg) => {
 
   await Total.updateOne(
     { name: name },
-    { name, worker, state, tar_vol, prod_vol, defect_cnt, now, defect_rate },
+    {
+      $set: {
+        worker,
+        state,
+        tar_vol,
+        prod_vol,
+        defect_cnt,
+        now,
+        defect_rate,
+      },
+    },
   );
   console.log('insert success');
 };
