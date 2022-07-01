@@ -1,7 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const Client = new MongoClient('mongodb://localhost:27017');
-const db = Client.db('SMF_Management');
-const db2 = Client.db('SMT_IT');
+const db = Client.db('SMT_IT');
 
 // 스마트팩토리 관리자 페이지
 const Admin = db.collection('Admin');
@@ -14,8 +13,8 @@ const Total = db.collection('Total');
 const User = db.collection('User');
 
 // 스마트축사
-const User2 = db2.collection('User2');
-const Weight = db2.collection('Weight');
+const User2 = db.collection('User2');
+const Weight = db.collection('Weight');
 
 let tot_name, tot_tar_vol, tot_prod_vol, tot_defect_cnt;
 
@@ -25,12 +24,10 @@ Client.connect((err, db) => {
 
 exports.loginAdmin = async (ctx) => {
   const { id, pw } = ctx.request.body;
-  console.log(ctx.request.body);
 
   if (!(await Admin.findOne({ id: id, pw: pw })))
     ctx.body = { loginSuccess: false, message: '로그인 실패' };
   else ctx.body = { loginSuccess: true, message: '로그인 성공' };
-  console.log(ctx.body);
 };
 
 exports.loginUser = async (ctx) => {
@@ -71,12 +68,8 @@ exports.findTarget = async (ctx) => {
 };
 
 exports.findTotal = async (ctx) => {
-  console.log(ctx.request.body);
   const { name } = ctx.request.body;
-
-  console.log('Find the all Total');
   ctx.body = await Total.find({ name }).toArray();
-  console.log(ctx.body);
 };
 
 exports.registerAdmin = async (ctx) => {
