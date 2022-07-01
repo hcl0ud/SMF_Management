@@ -127,7 +127,6 @@ exports.insertProduct = async (msg) => {
         worker,
         state,
         tar_vol,
-        prod_vol,
         defect_cnt,
         now,
         defect_rate,
