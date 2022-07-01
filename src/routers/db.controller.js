@@ -168,18 +168,20 @@ const upDefectVolume = async (name) => {
 };
 
 const getNow = async (tot_name, tot_tar_vol, tot_prod_vol) => {
+  console.log('----->> now');
   const name_filter = { name: tot_name };
-  let now = (tot_prod_vol / tot_tar_vol) * 100;
-  now = now.toFixed(2);
+  let now = ((tot_prod_vol / tot_tar_vol) * 100).toFixed(2);
+  console.log(now);
   await Total.updateOne(name_filter, { $set: { now: now } });
 
   return now;
 };
 
 const getDefectRate = async (tot_name, tot_defect_cnt, tot_prod_vol) => {
+  console.log('----->> defect_rate');
   const name_filter = { name: tot_name };
-  let defect_rate = (tot_defect_cnt / tot_prod_vol) * 100;
-  defect_rate = defect_rate.toFixed(2);
+  let defect_rate = ((tot_defect_cnt / tot_prod_vol) * 100).toFixed(2);
+  console.log(defect_rate);
   await Total.updateOne(name_filter, { $set: { defect_rate: defect_rate } });
 
   return defect_rate;
