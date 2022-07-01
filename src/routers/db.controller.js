@@ -108,8 +108,10 @@ exports.registerUser2 = async (ctx) => {
 
 exports.insertProduct = async (msg) => {
   await Product.insertOne(msg);
+
   const { name, is_defect } = msg;
   await upProdVolume(name);
+
   if (is_defect === '1') await upDefectVolume(name);
 
   const { worker, state, prod_vol, defect_cnt } = Progress.find({ name }).toArray();
@@ -118,9 +120,9 @@ exports.insertProduct = async (msg) => {
   const { now } = getNow(tot_name, tot_tar_vol, tot_prod_vol);
   const { defect_rate } = getDefectRate(tot_name, tot_defect_cnt, tot_prod_vol);
 
-  const total = { name, worker, state, tar_vol, prod_vol, defect_cnt, now, defect_rate };
+  const afterTotal = { name, worker, state, tar_vol, prod_vol, defect_cnt, now, defect_rate };
 
-  await Total.insertOne(total);
+  await Total.updateOne({ name: name }, afterTotal);
   console.log('insert success');
 };
 
