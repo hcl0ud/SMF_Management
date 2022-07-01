@@ -119,10 +119,10 @@ exports.insertProduct = async (msg) => {
   const { worker, state, prod_vol, defect_cnt } = await Progress.findOne({ name: name });
   const { tar_vol } = await Target.findOne({ name: name });
 
-  const now = ((prod_vol / tar_vol) * 100).toFixed(2);
-  const defect_rate = ((defect_cnt / prod_vol) * 100).toFixed(2);
+  let now = (prod_vol / tar_vol) * 100;
+  let defect_rate = (defect_cnt / prod_vol) * 100;
 
-  console.log(typeof now, now, typeof defect_rate, defect_rate);
+  console.log(typeof now, typeof defect_rate);
 
   await Total.updateOne(
     { name: name },
