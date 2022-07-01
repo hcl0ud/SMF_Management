@@ -57,6 +57,7 @@ exports.findProduct = async (ctx) => {
   console.log(ctx.request.body);
   console.log(name);
   ctx.body = await Product.find({ name: name });
+  console.log(ctx.body);
 };
 
 exports.findProgress = async (ctx) => {
