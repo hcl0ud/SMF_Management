@@ -1,5 +1,5 @@
 const awsIot = require('aws-iot-device-sdk');
-const db = require('./db.controller');
+const db = require('../database');
 const client = new awsIot.device({
   keyPath: __dirname + '/cert/SMF_MNG.private.pem.key',
   certPath: __dirname + '/cert/SMF_MNG.certificate.pem.crt',
