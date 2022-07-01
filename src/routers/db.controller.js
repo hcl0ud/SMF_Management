@@ -71,6 +71,7 @@ exports.findTarget = async (ctx) => {
 };
 
 exports.findTotal = async (ctx) => {
+  console.log(ctx.request.body);
   const { name } = ctx.request.body;
 
   console.log('Find the all Total');
