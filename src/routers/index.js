@@ -20,5 +20,6 @@ router
   .post('/User2/Register', db.registerUser2);
 
 mqtt.Con();
+mqtt.Sub();
 
 module.exports = router;
