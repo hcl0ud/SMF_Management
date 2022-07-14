@@ -26,7 +26,7 @@ router
   // User Page Board CRUD
   .get('/User/Board/List', db.getBoardList)
   .get('/User/Board/Detail', db.getBoardDetail)
-  .post('/User/Board/', db.insertBoard);
+  .post('/User/Board', db.insertBoard);
 
 MQTT.Con(); // MQTT Connect
 MQTT.Sub(); // MQTT Subscribe
