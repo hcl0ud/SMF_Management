@@ -44,11 +44,11 @@ exports.registerUser = async (ctx) => {
 };
 
 exports.registerUser2 = async (ctx) => {
-  const { id, pw } = ctx.request.body;
+  const { id, name, pw } = ctx.request.body;
 
   if (await User2.findOne({ id })) ctx.body = { registerSuccess: false, message: '회원가입 실패' };
   else {
-    await User2.insertOne({ id, pw });
+    await User2.insertOne({ id, name, pw });
     ctx.body = { registerSuccess: true, message: '회원가입 성공' };
   }
 };
