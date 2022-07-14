@@ -155,7 +155,6 @@ exports.getBoardList = async (ctx) => {
 };
 
 exports.getBoardDetail = async (ctx) => {
-  console.log(ctx);
   const { title } = ctx.request.body;
   const { contents, email, date } = await Board.findOne({ title: title });
   ctx.body = { title, contents, email, date };
