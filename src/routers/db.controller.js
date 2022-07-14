@@ -161,6 +161,7 @@ exports.getBoardDetail = async (ctx) => {
 };
 
 exports.insertBoard = async (ctx) => {
+  console.log(ctx);
   await Board.insertOne(ctx);
   ctx.body = { message: '게시글 작성 완료' };
 };
