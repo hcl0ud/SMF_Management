@@ -161,7 +161,7 @@ exports.getBoardDetail = async (ctx) => {
 };
 
 exports.insertBoard = async (ctx) => {
-  console.log(JSON.stringify(ctx));
+  console.log(ctx.request.body);
   await Board.insertOne(ctx);
   ctx.body = { message: '게시글 작성 완료' };
 };
