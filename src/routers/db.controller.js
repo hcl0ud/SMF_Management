@@ -151,8 +151,7 @@ exports.insertWeight = async (ctx) => {
 };
 
 exports.getBoardList = async (ctx) => {
-  const { title, id, date } = await Board.find().toArray();
-  ctx.body = { title, id, date };
+  ctx.body = await Board.find().toArray();
 };
 
 exports.getBoardDetail = async (ctx) => {
