@@ -11,6 +11,7 @@ const Total = db.collection('Total');
 
 // 스마트팩토리 유저 페이지
 const User = db.collection('User');
+const Board = db.collection('UserBoard');
 
 // 스마트축사
 const User2 = db.collection('User2');
@@ -88,7 +89,8 @@ exports.findProduct = async (ctx) => {
 };
 
 exports.findProgress = async (ctx) => {
-  ctx.body = await Progress.find().toArray();
+  const { name } = ctx.request.body;
+  ctx.body = await Progress.find({ name: name }).toArray();
 };
 
 exports.findTarget = async (ctx) => {
@@ -98,7 +100,7 @@ exports.findTarget = async (ctx) => {
 
 exports.findTotal = async (ctx) => {
   const { name } = ctx.request.body;
-  ctx.body = await Total.find({ name }).toArray();
+  ctx.body = await Total.find({ name: name }).toArray();
 };
 
 exports.insertProduct = async (msg) => {
@@ -146,4 +148,20 @@ exports.insertTarget = async (ctx) => {
 exports.insertWeight = async (ctx) => {
   await Weight.insertOne(ctx);
   console.log('insert success');
+};
+
+exports.getBoardList = async (ctx) => {
+  const { title, id, date } = await Board.find().toArray();
+  ctx.body = { title, id, date };
+};
+
+exports.getBoardDetail = async (ctx) => {
+  const { title } = ctx.request.body;
+  const { contents, email } = await Board.findOne({ title: title });
+  ctx.body = { title, contents, email };
+};
+
+exports.insertBoard = async (ctx) => {
+  await Board.insertOne(ctx);
+  ctx.body = { message: '게시글 작성 완료' };
 };
