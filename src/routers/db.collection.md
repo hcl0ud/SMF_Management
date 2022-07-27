@@ -12,7 +12,7 @@ is_defect,
 prod_date
 }
 
-Progress = {
+Process = {
 name,
 state,
 defect_cnt,

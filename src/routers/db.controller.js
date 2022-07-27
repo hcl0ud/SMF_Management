@@ -84,23 +84,19 @@ exports.loginUser2 = async (ctx) => {
 };
 
 exports.findProduct = async (ctx) => {
-  const { name } = ctx.request.body;
-  ctx.body = await Product.find({ name: name }).toArray();
+  ctx.body = await Product.find().toArray();
 };
 
 exports.findProgress = async (ctx) => {
-  const { name } = ctx.request.body;
-  ctx.body = await Progress.find({ name: name }).toArray();
+  ctx.body = await Progress.find().toArray();
 };
 
 exports.findTarget = async (ctx) => {
-  const { name } = ctx.request.body;
-  ctx.body = await Target.find({ name: name }).toArray();
+  ctx.body = await Target.find().toArray();
 };
 
 exports.findTotal = async (ctx) => {
-  const { name } = ctx.request.body;
-  ctx.body = await Total.find({ name: name }).toArray();
+  ctx.body = await Total.find().toArray();
 };
 
 exports.insertProduct = async (msg) => {
@@ -142,7 +138,7 @@ exports.insertProgress = async (ctx) => {
 exports.insertTarget = async (ctx) => {
   const { name, tar_vol } = ctx.request.body;
   await Target.updateOne({ name: name }, { $set: { tar_vol: tar_vol } });
-  ctx.body = { message: `목표량: ${tar_vol}` };
+  ctx.body = { message: '입력 성공!' };
 };
 
 exports.insertWeight = async (ctx) => {
