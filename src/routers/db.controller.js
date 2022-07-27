@@ -85,18 +85,22 @@ exports.loginUser2 = async (ctx) => {
 
 exports.findProduct = async (ctx) => {
   ctx.body = await Product.find().toArray();
+  console.log(ctx.body);
 };
 
 exports.findProgress = async (ctx) => {
   ctx.body = await Progress.find().toArray();
+  console.log(ctx.body);
 };
 
 exports.findTarget = async (ctx) => {
   ctx.body = await Target.find().toArray();
+  console.log(ctx.body);
 };
 
 exports.findTotal = async (ctx) => {
   ctx.body = await Total.find().toArray();
+  console.log(ctx.body);
 };
 
 exports.insertProduct = async (msg) => {
