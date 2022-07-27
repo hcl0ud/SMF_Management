@@ -141,7 +141,9 @@ exports.insertProgress = async (ctx) => {
 
 exports.insertTarget = async (ctx) => {
   const { name, tar_vol } = ctx.request.body;
+  Number(tar_vol);
   console.log(name, tar_vol);
+
   await Target.updateOne({ name: name }, { $set: { tar_vol: tar_vol } });
   await Total.updateOne({ name: name }, { $set: { tar_vol: tar_vol } });
   ctx.body = { message: '입력 성공!' };
