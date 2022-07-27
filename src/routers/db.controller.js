@@ -99,7 +99,7 @@ exports.findTarget = async (ctx) => {
 };
 
 exports.findTotal = async (ctx) => {
-  ctx.body = await Total.find();
+  ctx.body = await Total.find().toArray();
   console.log(ctx.body);
 };
 
